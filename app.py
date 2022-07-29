@@ -5,7 +5,7 @@ from models import todos
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "nininini"
 
-
+#przekierowaie na stronę główną aplikacji
 @app.route("/todos/", methods=["GET", "POST"])
 def todos_list():
     form = TodoForm()
@@ -18,7 +18,7 @@ def todos_list():
 
     return render_template("todos.html", form=form, todos=todos.all(), error=error)
 
-
+#przekierowanie na stronę z wybranym przepisem
 @app.route("/todos/<int:todo_id>/", methods=["GET", "POST"])
 def todo_details(todo_id):
     todo = todos.get(todo_id - 1)
