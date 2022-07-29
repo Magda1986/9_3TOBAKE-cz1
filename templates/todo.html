@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły todo</title>
+    <style>
+        table,
+        th,
+        tr,
+        td {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body style="background: rgb(239, 203, 209) ; font-family: Arial ;">
+    <h2> Zmień: </h2>
+    <form method="POST" action="/todos/{{ todo_id }}/">
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <tr>
+                <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Go">
+    </form>
+</body>
+
+</html>

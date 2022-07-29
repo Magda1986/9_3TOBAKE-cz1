@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tu tworzymy todo i widzimy listę</title>
+    <style>
+        table,
+        th,
+        tr,
+        td {
+            border: 2px solid black;
+        }
+
+        body {
+            background: rgb(239, 203, 209);
+            font-family: Arial;
+        }
+
+        .moj_div {
+            background-color: lightGreyś;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><b>Książka Kucharska<b> <img src="/static/torcik.jpg" alt="Przykładowa grafika proponowanych ciast" width="400"
+                    height="265" align="right" border="2"></h1>
+    <h2>Proste przepisy na kruche tarty, ciasta i torty</h2>
+
+
+    <table style="background: lightGrey; padding: 10px; box-shadow: 3px 3px grey; margin-bottom: 10px;">
+        <thead>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Czy bezglutenowe?</th>
+        </thead>
+        {% for todo in todos %}
+        <tr>
+            <td><a href="/todos/{{ loop.index }}">{{ todo.title }}</a></td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.done }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="moj_div" style=" padding: 10px; box-shadow: 3px 3px grey; margin-bottom: 10px;">
+        <h2> Dodaj nowy przepis: </h2>
+        <form method="POST" action="/todos/">
+            {{ form.hidden_tag() }}
+            <table>
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Go">
+        </form>
+    </div>
+</body>
+
+</html>
